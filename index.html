@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <script src="vue.js" type="text/javascript" charset="utf-8"></script>
+    <title></title>
+    <!--preload-links-->
+    <!--app-context-->
+  </head>
+  <body>
+    <script type="text/javascript">
+		
+	</script>
+  </body>
+</html>
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<script src="vue.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		<div id="app">
+			<div>
+				<span><b><u>基本信息</u></b></span>
+				<div>
+					<span><b>姓名</b>： {{basic_info.name}}</span>
+					<span><b>籍贯</b>： 
+						<a v-bind:href="url.zhuji">
+							{{basic_info.home}}
+						</a>
+					</span>
+				</div>
+				<div>
+					<span><b>电话</b>：{{basic_info.phone}}</span>
+					<span><b>邮箱</b>：{{basic_info.mail}}</span>
+				</div>
+				<div>
+					<span>
+						<b>大学</b>：
+						<a v-bind:href="url.bupt">
+						 {{basic_info.university}}
+						</a>
+					</span>
+					<span><b>学院</b>：<a v-bind:href="url.scs">{{basic_info.college}}</a></span>
+				</div>
+				<br/>
+			</div>
+			
+			<div>
+				<p>
+					Before you try to solve a problem, define it. <br/>
+					Before you try to control a process, understand it. <br/>
+					Before trying to control everything, find out what is important.
+				</p>
+				<br/>
+			</div>
+			
+			<div>
+				<span><b><u>教育经历</u></b></span>
+				<edu-item 
+				 v-for="item in edus"
+				 v-bind:key="item.start"
+				 v-bind:edu="item"></edu-item>
+				<br/>
+			</div>
+			
+			<div>
+				<span><b><u>个人奖项</u></b></span>
+				<award-item
+				 v-for="item in awards"
+				 v-bind:key="item.time"
+				 v-bind:award="item"></award-item>
+				<br/>
+			</div>
+			
+			<div>
+				<span><b><u>项目经历</u></b></span>
+				<proj-item
+				 v-for="item in projects"
+				 v-bind:key="item.start"
+				 v-bind:proj="item"></proj-item>
+				<br/>
+			</div>
+			
+			<div>
+				<span><b><u>实习经历</u></b></span>
+				<proj-item
+				 v-for="item in interns"
+				 v-bind:key="item.start"
+				 v-bind:proj="item"></proj-item>
+				<br/>
+			</div>
+			
+			<p><b>个人总结</b>：{{basic_info.summery}}</p>
+			
+		</div>
+		
+		<script type="text/javascript">
+			Vue.component('edu-item', {
+				props: ['edu'],
+				template: 
+				'<div> \
+					<span>--</span> \
+					<div> \
+						<span><b>学校</b>：{{edu.university}}</span> \
+						<span><b>学院</b>：{{edu.college}}</span> \
+						<span><b>专业</b>：{{edu.major}}</span> \
+					</div> \
+					<div> \
+						<span><b>实验室</b>：{{edu.lab}}</span> \
+						<span><b>导师</b>：{{edu.tutor}}</span> \
+						<span><b>研究方向</b>：{{edu.study}}</span> \
+					</div> \
+					<div> \
+						<span><b>Start</b>：{{edu.start}}</span> \
+						<span><b>End</b>：{{edu.end}}</span> \
+					</div> \
+				</div>'
+			});
+			
+			Vue.component('award-item', {
+				props: ['award'],
+				template: 
+				'<li> \
+					<span><b>奖项名称</b>：{{award.award_name}}</span> \
+					<span><b>奖项等级</b>：{{award.level}}</span> \
+					<span><b>获奖时间</b>：{{award.time}}</span> \
+				</li>'
+			});
+			
+			Vue.component('proj-item', {
+				props: ['proj'],
+				template: 
+				'<div> \
+					<span>--</span> \
+					<div> \
+						<span><b>项目名称</b>：{{proj.project_name}}</span> \
+					</div> \
+					<div> \
+						<span><b>项目单位</b>：{{proj.company}}</span> \
+					</div> \
+					<div> \
+						<span><b>项目描述</b>：{{proj.description}}</span> \
+					</div> \
+					<div> \
+						<span><b>开始日期</b>：{{proj.start}}</span> \
+						<span><b>结束日期</b>：{{proj.end}}</span> \
+					</div> \
+				</div>'
+			});
+			
+			Vue.component('intern-item', {
+				props: ['intern'],
+				template: 
+				'<div> \
+					<span>--</span> \
+					<div> \
+						<span><b>公司</b>：{{intern.company}}</span> \
+					</div> \
+					<div> \
+						<span><b>岗位</b>：{{intern.job}}</span> \
+					</div> \
+					<div> \
+						<span><b>工作描述</b>：{{intern.description}}</span> \
+					</div> \
+					<div> \
+						<span><b>开始日期</b>：{{intern.start}}</span> \
+						<span><b>结束日期</b>：{{intern.end}}</span> \
+					</div> \
+				</div>'
+			});
+			
+			var app = new Vue({
+				el: '#app',
+				data: {
+					url_bupt: "https://www.bupt.edu.cn/",
+					basic_info: {
+						id: '2021666888',
+						name: '侯金冰',
+						university: '北京邮电大学',
+						college: '计算机学院（国家示范性软件学院）',
+						phone: '18810123888',
+						mail: 'hjinbing@bupt.edu.cn',
+						home: '浙江诸暨',
+						summery: '这是我的个人总结'
+					},
+					edus: [
+						{
+						    id: '2021666888',
+						    university: '北京邮电大学',
+						    college: '计算机学院（国家示范性软件学院）',
+						    major: '计算机科学与技术专业',
+						    lab: '视觉计算与智能系统实验室',
+						    tutor: '何召锋',
+						    study: '强化学习 因果推理',
+						    start: '2021-10-10',
+						    end: '2024-06-30'
+						},
+						{
+						    id: '2021666888',
+						    university: '北京邮电大学',
+						    college: '计算机学院（国家示范性软件学院）',
+						    major: '计算机科学与技术专业',
+						    lab: '物联网技术实验室',
+						    tutor: '刘亮',
+						    study: '无',
+						    start: '2021-09-01',
+						    end: '2024-06-30'
+						},
+						{
+						    id: '2017666888',
+						    university: '北京邮电大学',
+						    college: '计算机学院',
+						    major: '计算机科学与技术专业',
+						    lab: '无',
+						    tutor: '无',
+						    study: '无',
+						    start: '2018-09-01',
+						    end: '2021-06-30'
+						},
+						{
+						    id: '2017666888',
+						    university: '北京邮电大学',
+						    college: '自动化学院',
+						    major: '测控技术与仪器专业',
+						    lab: '无',
+						    tutor: '无',
+						    study: '无',
+						    start: '2017-09-01',
+						    end: '2018-08-31'
+						}
+					],
+					awards: [
+						{
+						    id: '2017666888',
+						    award_name: '美国大学生数学建模竞赛',
+						    level: 'Meriterious',
+						    time: '2019-01-20'
+						}, 
+						{
+						    id: '2017666888',
+						    award_name: '全国大学生数学竞赛',
+						    level: '二等奖',
+						    time: '2018-08-31'
+						}
+					],
+					projects: [
+						{
+						    id: '2017666888',
+						    project_name: '上海蜜度热度指数项目',
+						    company: '清华大学新闻传播学院与上海蜜度信息技术有限公司',
+						    description: '建立媒体大数据舆情热度评估算法（更新第一代不再适用的标准）',
+						    start: '2019-12-01',
+						    end: '2020-05-30'
+						},
+						{
+						    id: '2017666888',
+						    project_name: '卢浮宫紧急逃生方案设计项目',
+						    company: '美国大学生数学建模竞赛官方',
+						    description: '设计一套卢浮宫在紧急情况下的人群逃生方案',
+						    start: '2019-01-23',
+						    end: '2020-01-28'
+						}
+					],
+					interns: [
+						{
+						    id: '2021666888',
+						    company: '中科寒武纪科技股份有限公司',
+						    job: 'C++软件研发岗',
+						    description: '模块测试，代码优化',
+						    start: '2021-10-20',
+						    end: '2022-3-20'
+						},
+						{
+						    id: '2017666888',
+						    company: '清华大学计算机系软件研究所',
+						    job: '科研实习',
+						    description: '面向AMiner平台建立学者数据中存在的名词歧义问题',
+						    start: '2019-10-01',
+						    end: '2019-12-31'
+						}
+					],
+					url: {
+						bupt: 'https://www.bupt.edu.cn',
+						zhuji: 'https://baike.baidu.com/item/%E8%AF%B8%E6%9A%A8/2584357',
+						scs: 'https://scs.bupt.edu.cn/',
+						cambricon: 'https://www.cambricon.com/',
+						thusoftcs: 'https://soft.cs.tsinghua.edu.cn/',
+						midu: 'https://www.midu.com/about',
+						comap: 'https://www.comap.com/undergraduate/contests/',
+						tsjc: 'https://www.tsjc.tsinghua.edu.cn/',
+						cmathc: 'http://www.cmathc.cn/',
+					}
+				},
+				methods: {
+					reverseMsg: function(){
+						this.msg3 = this.msg3.split('').reverse().join('')
+					}
+				}
+			});
+		</script>
+	</body>
+</html>
